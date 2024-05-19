@@ -1,0 +1,51 @@
+.authentication {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    /* margin: 50px 50px 0px 40px; */
+}
+
+.auth__left {
+    flex: 0.5;
+    text-align: center;
+}
+
+.auth__right {
+    /* flex: 0.5; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+.auth__left>img {
+    width: 500px;
+    height: 500px;
+    margin-top: 40px;
+}
+
+.auth__more {
+    border: 1px solid grey;
+    padding: 20px;
+    text-align: center;
+    width: 19vw;
+    margin-left: 56%;
+}
+
+.auth__more>span {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+@media (min-width:300px) and (max-width:450px) {
+    .auth__left>img {
+        display: none;
+    }
+
+    .auth__more {
+        width: 64vw;
+        margin: 15px 0 0 25px;
+    }
+}
