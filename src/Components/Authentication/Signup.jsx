@@ -43,9 +43,6 @@ const Signup = () => {
         <>
             <Box component="div" className='Signup-main-div'>
 
-            <Box component="div" className='Signup-main-img-div'>
-                <img className='Signup-main-img' src="https://image.slidesharecdn.com/instagram-login-guide-160619105454/95/instagram-login-sign-up-guide-1-638.jpg?cb=1486972776" alt="" />
-            </Box>
             <Box component="div" className='signup'>
                 <img src="https://www.logolynx.com/images/logolynx/82/82abee4b6db4025c07209adec0d62acd.png" width={200} className='sidenav__logo' alt="notfound" />
 
@@ -72,7 +69,7 @@ const Signup = () => {
                     <div className='submitbtn-div'>
                         <button disabled={isSubmitting} className='submitbtn' type='submit' >Sign Up</button>
                         {isSubmitting && <div style={{ color: "greenyellow" }}>Loading...</div>}
-                        {/* {isSubmitted && <div style={{color:"green"}}>Successfull</div>} */}
+                        {isSubmitted && <div style={{color:"green"}}>Successfull</div>}
                     </div>
                 </form>
             </Box>

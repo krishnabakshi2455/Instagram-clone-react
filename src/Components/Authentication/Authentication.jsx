@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Authentication.css'
 import { Box, Button } from '@mui/material'
-import './Authentication.css'
 import Login from './Login'
 import Signup from './Signup'
 const Authentication = () => {
@@ -17,6 +16,9 @@ const Authentication = () => {
     return (
         <>
             <Box component="div" className='authentication'>
+                <Box component="div" className='auth__left'>
+                    <img src="https://thumbs.dreamstime.com/b/instagram-app-login-page-screen-phone-rome-italy-february-th-hand-holding-smart-social-blurry-logo-background-211497493.jpg" alt="" />
+                </Box>
 
                 <Box component="div" className='auth__right'>
                     {
@@ -25,7 +27,7 @@ const Authentication = () => {
 
                     <Box component="div" className='auth__more'>
 
-                        <span style={{color:"white"}}>
+                        <span>
                             {
                                 active === "login" ? (<>Dont have an account? <Button variant="text" onClick={handlechange}>Sign Up</Button></>)
                                     : (<>have an account<Button variant="text" onClick={handlechange}>Log In</Button></>)
