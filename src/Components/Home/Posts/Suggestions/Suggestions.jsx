@@ -8,6 +8,9 @@ const Sugesstions = () => {
     return (
         <>
             <Box component="div" className='sugessions'>
+                <Box component="div" className='flex items-center gap-3 mb-4'>
+                    <Avatar>{currentUsername[0]}</Avatar> {currentUsername}  <Button variant="text"  >Switch</Button>
+                </Box>
                 <Box component="div" className='suggestions__title'>
                     Sugegestions for you
                 </Box>

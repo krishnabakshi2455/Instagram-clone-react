@@ -81,4 +81,12 @@
     .Signup-main-img-div {
         display: none;
     }
+
+    .Signup-main-div {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-top: 0;
+        justify-content: center;
+    }
 }

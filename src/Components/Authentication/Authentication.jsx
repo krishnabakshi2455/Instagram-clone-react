@@ -16,6 +16,7 @@ const Authentication = () => {
     return (
         <>
             <Box component="div" className='authentication'>
+      
                 <Box component="div" className='auth__left'>
                     <img src="https://thumbs.dreamstime.com/b/instagram-app-login-page-screen-phone-rome-italy-february-th-hand-holding-smart-social-blurry-logo-background-211497493.jpg" alt="" />
                 </Box>
@@ -26,7 +27,7 @@ const Authentication = () => {
                     }
 
                     <Box component="div" className='auth__more'>
-
+                        
                         <span>
                             {
                                 active === "login" ? (<>Dont have an account? <Button variant="text" onClick={handlechange}>Sign Up</Button></>)

@@ -1,0 +1,44 @@
+.suggestions-container {
+    /* border: 1px solid white; */
+    margin: 0;
+    width: 25%;
+    height: 70vh;
+}
+
+.posts-container-main {
+    /* border: 1px solid white; */
+    width: 100%;
+    box-sizing: border-box;
+    height: 98vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+
+}
+
+.post-super-container {
+    display: flex;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+    width: 80vw;
+    padding: 5px;
+    justify-content: space-around;
+
+}
+.post-following-container{
+    margin-left: 15%;
+    margin-bottom: 50;
+}
+.reel-container-main{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 95vh;
+        overflow: auto;
+}
+.reel-container{
+    width: 40%;
+    margin-left: 15%;
+}
