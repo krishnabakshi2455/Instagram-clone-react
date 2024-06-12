@@ -29,3 +29,12 @@
     width: 80%;
 
 }
+@media (min-width:300px) and (max-width:450px) {
+.navbar-main-div {
+    display: none;
+    }
+        .post-conatainer-navabar{
+            width: 100%;
+        }
+
+}

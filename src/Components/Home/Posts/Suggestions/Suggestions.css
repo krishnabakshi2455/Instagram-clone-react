@@ -41,29 +41,11 @@
 
 @media (min-width:300px) and (max-width:450px) {
     .header-main {
-        display: flex;
-        position: fixed;
-        left: 0;
-        top: 0;
-        border: 1px solid white;
-        background-color: black;
-        gap: 20px;
-        height: 15vh;
-        overflow: scroll;
+        display: none;
     }
 
     .sugessions {
         display: none;
     }
 
-    .header-img {
-        width: 50px;
-        border-radius: 100px;
-    }
-
-    .header-title {
-        display: flex;
-        flex-direction: column;
-        margin-left: 6%;
-    }
 }

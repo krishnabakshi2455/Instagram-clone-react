@@ -2,7 +2,7 @@ import React from 'react'
 import Sugesstions from './Suggestions/Suggestions'
 import { Box } from '@mui/material'
 import "./Posts.css"
-import Cards from './Cards'
+
 import { Link, Routes, Route } from 'react-router-dom';
 import Following from './Following/Following'
 

@@ -15,7 +15,8 @@ import Posts from '../Posts/Posts'
 import MenuIcon from '@mui/icons-material/Menu';
 import Sugesstions from '../Posts/Suggestions/Suggestions';
 import { loggedinuser, signup, logout } from '../../ReduxStore/StoreContainer';
-import Cards from '../Posts/Cards'
+import Reels from '../Posts/Reels/Reels';
+
 const Navbar = () => {
 
     const currentUsername = useSelector((state) => state.Form.username);
@@ -30,7 +31,7 @@ const Navbar = () => {
 
     return (
         <>
-            <Box component="div" className='navbar-super-div flex w-screen justify-around'>
+            <Box component="div" className='navbar-super-div flex w-screen lg:justify-around'>
 
                 <Box component="div" className='navbar-main-div'>
                     <img src="https://www.logolynx.com/images/logolynx/82/82abee4b6db4025c07209adec0d62acd.png" width={150} className=' ml-4 mt-4' alt="notfound" />
@@ -39,7 +40,7 @@ const Navbar = () => {
 
 
                         <Box component="div" className='icon-container '>
-                            <Link to="/Cards" className=' text-white cursor-pointer'><HomeIcon /></Link>
+                            <Link to="/" className=' text-white cursor-pointer'><HomeIcon /></Link>
                             <Link to="/Posts" className=' text-white cursor-pointer'><SearchIcon /></Link>
 
                             <Link to="/Posts" className=' text-white cursor-pointer'><ExploreIcon /></Link>
@@ -49,7 +50,7 @@ const Navbar = () => {
                             <Link to="/Posts" className=' text-white cursor-pointer'><ChatIcon /></Link>
                             <Link to="/Posts" className=' text-white cursor-pointer'><FavoriteBorderIcon /></Link>
 
-                            <Link to="/Posts" className=' text-white'><AddCircleOutlineIcon /></Link>
+                            <Link to="/Create" className=' text-white'><AddCircleOutlineIcon /></Link>
 
 
 
@@ -59,13 +60,13 @@ const Navbar = () => {
                         </Box>
 
                         <Box component="div" className='navbar-name-container flex flex-col gap-10'>
-                            <Link className='text-white font-serif cursor-pointer'>Home</Link>
+                            <Link to="/" className='text-white font-serif cursor-pointer'>Home</Link>
                             <Link className='text-white font-serif cursor-pointer'>Search</Link>
                             <Link className='text-white font-serif cursor-pointer'>Explore</Link>
                             <Link className='text-white font-serif cursor-pointer'>Reel</Link>
                             <Link className='text-white font-serif cursor-pointer'>Message</Link>
                             <Link className='text-white font-serif cursor-pointer'>Notification</Link>
-                            <Link className='text-white font-serif cursor-pointer'>Create</Link>
+                            <Link to="/Create" className='text-white font-serif cursor-pointer'>Create</Link>
                             <Link to="/Posts" className=' text-white cursor-pointer ml-2 mt-2'>{currentUsername}</Link>
 
                         </Box>
@@ -80,7 +81,7 @@ const Navbar = () => {
 
                     <Routes>
                         <Route path="/" element={<Posts />} />
-                        <Route path="/Cards" element={<Cards />} />
+                        <Route path="/Create" element={<Reels/>} />
                     </Routes>
 
                 </Box>
