@@ -20,10 +20,10 @@ function App() {
 
   return (
     <>
-      <Home/>
-      {/* {
+      {/* <Home/> */}
+      {
         currentUsername && loggedinusername && currentPassword && loggedinuserpassword ? <Home /> : <Authentication />
-      } */}
+      }
     </>
   )
 }
