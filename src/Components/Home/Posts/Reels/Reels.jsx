@@ -3,7 +3,9 @@ import './Reels.css'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
-import { PostsData, Descriptions } from '../../../ReduxStore/ReelStore';
+import { PostsData,} from '../../../ReduxStore/ReelStore';
+import NavbarMobile from '../../Navbar/NavbarMobile';
+
 const Reels = () => {
 
     const {
@@ -28,33 +30,63 @@ const Reels = () => {
 
 
 
+    const imageExtensions = ['jpeg', 'jpg', 'gif', 'png', 'bmp', 'webp', 'svg'];
+   
+
+
+    const getFileExtension = (url) => {
+        const parts = url.split('.');
+        return parts[parts.length - 1].toLowerCase();
+    };
+
+    /*
+        Explanation Here ==>>
+       1. The getFileExtension function takes a URL as an input and returns the file extension
+       2. The On Submit Function Does a lot of work  
+            a. Get the data in object 
+            b. the file variable contain the main url 
+            c. reader is an FileReader API.
+            d. dataurl is using the getFileExtension function to return the url extension 
+            e. In if if the imageExtensions includes  the extension returned by getFileExtension then the image will be changed into data url string because normal screenshot or photos does not work in img tag and then dispatch the data to the Redux store via the PostsData action
+            f. In else if the first condition does not match then the url will be sent as it is without any change
+    */
+
     const onSubmit = async (data) => {
-        await delay(0)
-        // console.log("from reels component image =>>",data.photo[0].name);
-        // console.log("form reels component description", data.description)
+        await delay(0);
+        console.log(data);
+        let file = data.photo[0];
+        let reader = new FileReader();
+        let dataurl = getFileExtension(data.photo[0].name)
+        console.log("data url hai ye",dataurl);
 
-        // dispatch(PostsData({ postsdata: data.photo[0].name }))
-        // dispatch(Descriptions({ description: data.photo[0].name }))
-        const postContent = data.photo[0].name;
-        const postDescription = data.description;
+        
+        if (imageExtensions.includes(dataurl)) {
+            reader.onloadend = () => {
+                const postContent = reader.result; // Data URL string
+                const postDescription = data.description;
+                dispatch(PostsData({ postContent, postDescription }));
+            };
 
-        // Dispatch the form data directly
-        dispatch(PostsData(postContent));
-        dispatch(Descriptions(postDescription));
-        // i use this to send multiple data to make multiple posts 
-        console.log("data sended to redux");
+            reader.readAsDataURL(file);
+        } else {
+            const postContent = data.photo[0].name;
+            const postDescription = data.description;
+            dispatch(PostsData({ postContent: postContent, postDescription: postDescription }));
+        }
 
-    }
+    };
+
+    const postdatamain = useSelector((state) => state.Reels.postsdata);
+
+    console.log('from reel component reduxreel reelurl =>>', postdatamain);
 
 
 
 
 
-    const postsDataNew = useSelector((state) => state.Reels.postsdata);
-    const postsDataNewNot = useSelector((state) => state.Reels.description);
 
-    console.log("from reel component reduxreel PostsData =>>", postsDataNew);
-    console.log("from reel component reduxreel Descriptions data =>>", postsDataNewNot);
+
+
 
 
     return (
@@ -91,6 +123,12 @@ const Reels = () => {
 
                 </form>
 
+
+
+            </div>
+
+            <div className='Navbarmobile-container'>
+                <NavbarMobile />
             </div>
 
         </>

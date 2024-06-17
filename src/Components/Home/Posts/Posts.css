@@ -36,9 +36,11 @@
 .reel-container-main {
     width: 100%;
     display: flex;
+    /* flex-direction: column; */
     justify-content: space-between;
     height: 95vh;
     overflow: auto;
+    margin-top: 2rem;
 }
 
 .reel-container {
@@ -46,9 +48,57 @@
     margin-left: 15%;
 }
 
+.Navbarmobile-container {
+    display: none;
+}
+
+
+.reel-container {
+    /* border: 1px solid red; */
+    height: auto;
+}
+
+.reel-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reel-name-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.reel-content {
+    height: auto;
+    width: 100%
+}
+
+.reel-descr {
+    display: flex;
+    overflow-x: auto;
+    height: 5vh;
+}
+
+.reel-start {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.all-comments {
+    margin-bottom: 1.2rem;
+    margin-top: 10px;
+    overflow: auto;
+    height: 50px;
+    display: flex;
+    border: 0.8px solid rgb(30, 30, 30);
+}
+
 @media (min-width:300px) and (max-width:450px) {
     .posts-container-main {
-        border: 1px solid green;
+        /* border: 1px solid green; */
         width: 100%;
         box-sizing: border-box;
         height: 98vh;
@@ -62,7 +112,7 @@
 
     .post-super-container {
         display: flex;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         box-sizing: border-box;
         width: 100vw;
         justify-content: space-around;
@@ -71,24 +121,40 @@
 
     .post-following-container {
         margin-left: 15%;
-        
+
     }
-        .reel-container-main {
-            border: 1px solid blue;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            height: 95vh;
-            overflow: auto;
-        }
-        
-        .suggestions-container{
-            display: none;
-            visibility: hidden;
-        }
-                .reel-container {
-                    width: 90%;
-                    margin-left: 0;
-                }
+
+    .reel-container-main {
+        /* border: 1px solid blue; */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 95vh;
+        overflow: auto;
+    }
+
+    .suggestions-container {
+        display: none;
+        visibility: hidden;
+    }
+
+    .reel-container {
+        width: 90%;
+        margin-left: 0;
+    }
+
+    .Navbarmobile-container {
+        display: block;
+    }
+
+    .all-comments {
+        margin-bottom: 1.2rem;
+        margin-top: 10px;
+        overflow: auto;
+        height: 50px;
+        display: flex;
+        border: 0.8px solid rgb(30, 30, 30);
+        width: 100%;
+    }
 
 }

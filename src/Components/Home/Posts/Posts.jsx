@@ -1,40 +1,202 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Sugesstions from './Suggestions/Suggestions'
-import { Box } from '@mui/material'
+import { Box, Avatar } from '@mui/material'
 import "./Posts.css"
-
+import { useSelector, useDispatch } from 'react-redux';
+import { loggedinuser, signup, logout } from '../../ReduxStore/StoreContainer';
 import { Link, Routes, Route } from 'react-router-dom';
 import Following from './Following/Following'
-
-
-
-
+import NavbarMobile from '../Navbar/NavbarMobile';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { PostsData, } from '../../ReduxStore/ReelStore';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import SendIcon from '@mui/icons-material/Send';
+import ForumIcon from '@mui/icons-material/Forum';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 const Posts = () => {
+  const currentUsername = useSelector((state) => state.Form.username);
+  const currentPassword = useSelector((state) => state.Form.password);
+  console.log("from posts currentusername=>>", currentUsername);
 
+  const MainPostsData = useSelector((state) => state.Reels.postsdata)
+  console.log("from posts postsreduxdata==>>", MainPostsData);
+  // console.log("from posts postsreduxdata==>>", MainPostsData[0].postContent);
+
+
+
+  const imageExtensions = ['jpeg', 'jpg', 'gif', 'png', 'bmp', 'webp', 'svg'];
+  const videoExtensions = ['mp4', 'webm', 'ogg', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
+
+
+  const getFileExtension = (url) => {
+    const parts = url.split('.');
+    return parts[parts.length - 1].toLowerCase();
+  };
+
+  const isImageOrVideo = (url)=>{
+    const extension = getFileExtension(url);
+    if (videoExtensions.includes(extension)){
+      return 'video';
+    }else{
+      return 'image';
+    }
+  }
+
+ 
+
+
+  
 
   return (
     <>
-    <Box component="div" className='post-super-container'>
-    <Box component="div" className='posts-container-main '>
-      <Box component="div" className='post-following-container'>
+      <Box component="div" className='post-super-container'>
+        <Box component="div" className='posts-container-main '>
+          <Box component="div" className='post-following-container'>
 
-      <Following/>
+            <Following />
 
           </Box>
           <div className='reel-container-main'>
-              <div className='reel-container'>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eius pariatur eos voluptatem mollitia modi quidem quasi accusantium quos, ducimus corporis laborum similique optio maxime ad distinctio ullam dicta repudiandae vel. Neque commodi atque aut quis vero officia doloribus quod fuga laudantium alias esse quaerat hic maxime delectus, laboriosam velit, accusantium libero eaque quisquam modi. Excepturi nam accusamus esse suscipit quaerat eius soluta nesciunt labore ipsam repellat neque dolorum quibusdam molestias vel natus facere, quos ea, nostrum nemo architecto! Numquam quaerat eos voluptatibus, nobis nostrum doloremque unde minima in suscipit tempore delectus autem consectetur quidem praesentium porro hic voluptatem maxime temporibus quae a labore deleniti? Et optio veritatis ex assumenda. Vel, temporibus eos labore, aperiam corrupti totam autem deserunt nostrum est illum laboriosam iste molestias! Beatae expedita itaque iusto vitae excepturi? Eius itaque asperiores, non ipsam, recusandae repellendus nisi blanditiis quia fugit, eaque officiis ducimus similique libero quas. Officia quos ducimus mollitia veniam voluptates repellat cum pariatur quo dolorum eveniet ex debitis at repudiandae rerum ipsam animi tempore deleniti impedit inventore in, autem neque. Consequatur modi ipsam, assumenda veniam ad accusamus earum laudantium unde aperiam doloremque libero ullam quidem sapiente impedit ut a sed voluptatum cum. Atque incidunt excepturi, nemo ratione perferendis voluptatum quae exercitationem a quasi quisquam! Voluptatum aperiam tempore praesentium rerum fugit, dolorem officiis, accusamus nostrum minima quam quod nulla reiciendis incidunt, maxime blanditiis unde error esse id expedita. Ea, pariatur! Inventore molestias ex deleniti repellat, ut nobis modi eligendi consequatur aliquid? Doloremque dicta assumenda laudantium dignissimos quos dolor asperiores natus eaque illo cum saepe odit, soluta nesciunt nisi velit, blanditiis excepturi nobis mollitia. Ducimus, culpa tempore! Eius ullam accusantium porro ex, accusamus facilis, commodi voluptates ducimus, sequi corrupti saepe. Autem qui tempore ipsa corporis a facilis temporibus sapiente magni exercitationem ex earum nobis alias id nulla, eius corrupti neque, placeat vitae dolore. Alias veniam, facere dignissimos voluptates accusamus odio itaque dicta, deleniti mollitia fugit enim. Enim voluptatibus eos repellat in quidem explicabo repellendus quisquam corrupti ea, deleniti adipisci, libero, tempora dolore quaerat sunt dolorem assumenda quod consectetur unde atque itaque! Exercitationem, quasi eaque! Esse ullam est provident numquam consequuntur. Id nesciunt ea facere neque voluptatem reprehenderit quam at, quaerat eligendi, vero, saepe eius! Incidunt excepturi rem libero qui quisquam obcaecati officiis soluta nemo non nulla eligendi corrupti repudiandae pariatur doloremque dolor culpa, at expedita atque! Blanditiis nulla animi voluptatibus mollitia asperiores nisi atque consequatur, ducimus natus ut, facilis laboriosam eum quas adipisci fuga culpa nemo debitis, magni obcaecati. Voluptatum quo eveniet magnam, voluptatem, cumque dolorem mollitia totam itaque ipsa numquam aliquam culpa repudiandae maxime? Accusamus minima velit amet, modi autem quod consequatur et vero quam quibusdam harum eveniet omnis quisquam ab alias culpa cupiditate? Voluptatem debitis reprehenderit iste officia a facere! Reiciendis adipisci dolore vero consectetur doloribus. Unde optio praesentium quam placeat distinctio et eveniet! Nulla eveniet maiores eligendi deleniti ratione ex et temporibus corrupti? Quo, labore doloremque. Alias possimus repudiandae unde assumenda molestiae facilis accusantium eaque error deleniti, quos dolores perferendis quidem illo earum asperiores fugiat soluta magnam numquam odio modi neque mollitia quo eveniet ipsa! Voluptas officia quod fuga cum autem obcaecati quisquam doloremque? Minima itaque repudiandae dolor soluta tempora quia, corporis quis hic esse ad cum quae distinctio mollitia quibusdam corrupti numquam? Ratione eveniet recusandae ullam accusantium excepturi culpa. Similique velit nam autem nisi maxime labore soluta! Repellendus illum eaque sapiente repellat impedit cum obcaecati qui quidem iste soluta, adipisci fugit molestiae nam vitae magnam! Soluta, officia? Vero in temporibus ad nemo eius nulla, hic quidem, distinctio ipsa, incidunt dignissimos quo eum consequatur quaerat accusantium quisquam totam debitis culpa perspiciatis! Quidem quae ipsum eos beatae sit quo pariatur ratione, ipsam reprehenderit fugiat suscipit magni saepe? Unde suscipit expedita vel ipsa a sint corporis quaerat saepe libero est amet quos magnam inventore omnis maxime pariatur, quis nobis. Impedit inventore ex, officia sapiente mollitia voluptates veniam. Consequuntur dolore atque necessitatibus placeat dolorem voluptatem voluptatum iusto adipisci, eaque tempora assumenda minus fugiat sed ullam aut. Dolor hic ad veritatis. Rem ipsa architecto corporis dolorem vel quia minima saepe delectus, ipsum cum voluptate. Dolor a consequatur vel deserunt eos debitis provident est fugiat labore quisquam sint quidem consequuntur molestiae quibusdam eveniet, aspernatur nihil tempore, ipsam voluptate autem iste? Quis adipisci minus iure tempore temporibus eaque vel quasi, voluptatum vitae est porro quidem laborum reprehenderit odit expedita iusto nostrum officiis, culpa placeat laboriosam! Ullam nesciunt tempore laudantium vel, autem voluptate. Natus laboriosam numquam culpa quidem exercitationem similique sequi modi fuga! Voluptatem quas unde quidem facilis, magnam, inventore reiciendis rerum laudantium repudiandae sed vitae ratione quos! Harum quos cumque labore numquam expedita, laudantium molestiae quia dolorum, consequatur fuga unde esse possimus explicabo et similique quas tenetur rem sequi iure quae? Dolorem quas exercitationem nobis ratione saepe maxime veritatis soluta laudantium quaerat fugit iusto veniam repellendus debitis vitae architecto excepturi necessitatibus, ipsum non aut. Cupiditate harum ullam placeat nesciunt odit, temporibus dolorem, deserunt voluptatibus ab culpa minima nulla, iure dignissimos voluptatem reprehenderit quisquam nobis tenetur delectus mollitia saepe eos similique aliquid atque numquam. Aliquid modi dicta totam corrupti! Iure laborum dolorem voluptate quos suscipit alias ratione ea atque accusamus. Dolor aliquid corrupti accusantium id velit nihil, repudiandae distinctio voluptatum deserunt ipsa. Ab, alias. Neque quasi possimus nemo atque, mollitia fugit dolore. Ratione nam explicabo eum suscipit natus assumenda velit temporibus illum esse possimus quis fuga totam aliquam facilis a, iure repellat? Illo quos minus eligendi in quibusdam molestiae eum ea alias rerum, voluptatum debitis assumenda itaque amet incidunt magni tempore nihil, non porro, eius voluptatibus doloremque mollitia impedit! Exercitationem corrupti beatae eum atque nostrum culpa cum quisquam vero nam ad. Reiciendis voluptas aperiam veniam, dolor id consequuntur obcaecati ullam similique numquam in adipisci minima voluptatem sint sunt cum. Dolorem ex mollitia impedit veniam ratione corrupti, nam officia similique aut numquam suscipit repellendus labore laboriosam corporis alias, repudiandae nulla voluptates modi autem inventore. Ducimus illum corrupti, magni dicta id, saepe nam ad doloremque dignissimos quas exercitationem totam velit animi neque ea explicabo nulla. Iusto provident sed vel fugiat labore id itaque amet illum perspiciatis, enim obcaecati corrupti porro blanditiis aspernatur eius voluptates tempora modi omnis. Velit aut animi natus eaque expedita? Cum molestias perferendis quaerat praesentium perspiciatis? Aut iste aperiam explicabo consectetur neque? Iusto magnam adipisci illo nulla culpa, ab debitis laudantium dolore, odio vel obcaecati quas aspernatur qui! Tempora similique quae sapiente repellat! Voluptatem aspernatur, earum eaque, inventore alias magni quaerat error quam doloremque placeat officiis. Dolore ipsa nobis asperiores ipsum, nihil voluptatem eius! Alias quo ad ea pariatur deleniti iure repellendus maiores blanditiis similique totam. Repellendus magni, aspernatur animi enim eos fugiat amet hic tempora perferendis necessitatibus labore nam ratione in recusandae modi repudiandae sequi doloribus a omnis ipsum pariatur. Rerum saepe modi dolores quo eius pariatur quam enim sapiente, odit omnis sint itaque hic quod ipsa facilis quaerat eos cum natus nulla aspernatur assumenda, maxime aperiam. Officiis eos ipsa illum id rem distinctio maxime reiciendis sequi exercitationem? Corrupti similique inventore quos ab, vero, dolore nisi placeat tenetur minus porro asperiores hic quod consectetur esse. Obcaecati natus, provident repellat iste, eius illo perspiciatis reiciendis perferendis omnis accusantium vitae. Delectus, rem est! Odit blanditiis perferendis commodi asperiores quo, fugit cumque itaque corporis voluptate tempore incidunt, quas magni quia. Illum architecto ex modi vero iste est, maxime non! Soluta laborum fugit ex temporibus inventore! Repellat non officia officiis neque iste harum, tempore ut ea cum dolorum necessitatibus cumque maxime. Illum vel itaque commodi odio sint provident quae ab at tempore eveniet id, vitae fugit possimus optio quod voluptatum dolorum alias, obcaecati ducimus quo qui ea voluptates corporis. Nesciunt neque excepturi numquam quasi omnis, nam voluptatum perferendis, non rem quae aliquid ducimus officiis modi tempore nisi repellendus doloribus! Distinctio autem nihil reiciendis. Maxime, saepe dolorem. Sapiente, minima voluptatibus ab, veniam tempora hic odit enim qui deleniti explicabo earum illo distinctio corrupti possimus repellat porro eaque a. Blanditiis soluta ea, a ipsa illo repudiandae aspernatur sapiente similique accusantium distinctio fuga doloremque excepturi reprehenderit provident dicta sequi? Recusandae debitis, voluptatum illum doloremque adipisci in eos nam consequatur beatae at dolorem voluptas et! Nulla reiciendis dolorem deleniti architecto maiores, sed animi dolore sunt aut veniam beatae nemo fugit hic! Quasi iure ea, labore cupiditate nam provident tempore eaque rerum velit exercitationem aliquid quo sint quam ut non similique esse tempora nemo totam modi id saepe fugit. Commodi fugiat id delectus consectetur nemo exercitationem, accusantium culpa impedit dignissimos animi iste. Ex repellendus vero quos architecto quidem neque expedita nihil animi a vitae? Molestiae animi exercitationem, dolorem dolore odit molestias sunt aliquid ad porro alias velit corporis enim quo, explicabo similique. Quo quia explicabo consectetur quis recusandae quisquam consequatur qui magnam, obcaecati ipsum id adipisci distinctio, necessitatibus doloribus aperiam, sunt non fugiat optio assumenda. Adipisci ratione natus, sequi dolor eveniet est eligendi iusto deserunt at dignissimos? Quis quisquam et dignissimos doloremque culpa, ipsam eaque corporis minima nihil tenetur nam vero eligendi maiores quam, eum, alias quia omnis fugiat. Neque fuga nesciunt molestiae dolore, odio quam magnam facere minus architecto temporibus sequi asperiores aliquid, recusandae reprehenderit iste, blanditiis rerum?</p>
+
+            <div className='reel-container'>
+
+              {
+                MainPostsData && MainPostsData.map((item, index) => {
+                  const contentType = isImageOrVideo(item.postContent);
+                  // console.log("images from redux store in posts==>>", item.postContent);
+                  return (
+
+                    <div className='reel-start' key={index}>
+
+                      <div className='reel-header'>
+
+                        <div className='reel-name-container'>
+                          <Avatar  >{currentUsername[0]}</Avatar>
+                          <p>{currentUsername} </p>
+                        </div>
+
+                        <MoreHorizIcon />
+                      </div>
+                      {/* ======================================== */}
+
+                      <div className='reel-content'>
+                        {contentType === 'image' ? (
+                          <img src={item.postContent} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
+                        ) : contentType === 'video' ? (
+                          <video src={item.postContent} controls />
+                        ) : (
+                          <p>Welcome to Unknown</p>
+                        )}
+
+                       
+
+                        
+                      </div>
+
+                      <div className='reel-icons flex items-center justify-between'>
+                        <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                          <FavoriteBorderIcon />
+                          <ForumIcon />
+                          <SendIcon />
+                        </div>
+                        <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                      </div>
+
+                      <div className='reel-descr flex'>
+                        <p className='flex'>{currentUsername}*</p>
+                        <p>{item.postDescription}</p>
+                      </div>
+
+                      <div className='reel-comment mt-6'>
+                        <div className='flex'>
+                          <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
+                          <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
+                        </div>
+
+                        <div className='all-comments '>
+                          <p>All comments</p>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )
+                })
+              }
+
+
+
+
+
+
+
+
+              {/* ==========================================BELOW THIS ARE DUMMY CARDS======================================================================= */}
+
+
+              <div className='reel-start'>
+
+                <div className='reel-header'>
+
+                  <div className='reel-name-container'>
+                    <Avatar  >{currentUsername[0]}</Avatar>
+                    <p>{currentUsername} </p>
+                  </div>
+
+                  <MoreHorizIcon />
+                </div>
+                {/* ======================================== */}
+
+                <div className='reel-content'>
+                  <img src="https://wallpapercave.com/wp/wp4708763.jpg" alt="" />
+                </div>
+
+                <div className='reel-icons flex items-center justify-between'>
+                  <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                    <FavoriteBorderIcon />
+                    <ForumIcon />
+                    <SendIcon />
+                  </div>
+                  <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                </div>
+
+                <div className='reel-descr flex'>
+                  <p>{currentUsername} lorem1500</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, exercitationem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat libero cupiditate officiis quam quasi obcaecati perspiciatis nesciunt. Possimus, rem laudantium deserunt dolore tenetur eligendi id ratione. Minus ea molestiae tempora earum quis repellat cumque voluptates recusandae, saepe animi voluptatibus molestias accusantium voluptatem quibusdam esse iure ullam tenetur similique officiis explicabo!.</p>
+                </div>
+
+                <div className='reel-comment mt-6'>
+                  <div className='flex'>
+                    <label htmlFor="" className=' mr-4'>Add Comment </label>
+                    <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
+                  </div>
+
+                  <div className='all-comments '>
+                    <p>All comments</p>
+                  </div>
+
+                </div>
+
               </div>
+
+            </div>
+
+
 
 
             <Box component="div" className='suggestions-container'>
               <Sugesstions />
             </Box>
-          </div>
-         
 
-    </Box>
-    
+          </div>
+
+          <div className='Navbarmobile-container'>
+            <NavbarMobile />
+          </div>
+
+
+        </Box>
+
 
       </Box>
     </>

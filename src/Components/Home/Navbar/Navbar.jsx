@@ -40,7 +40,7 @@ const Navbar = () => {
 
 
                         <Box component="div" className='icon-container '>
-                            <Link to="/" className=' text-white cursor-pointer'><HomeIcon /></Link>
+                            <Link to="/Posts" className=' text-white cursor-pointer'><HomeIcon /></Link>
                             <Link to="/Posts" className=' text-white cursor-pointer'><SearchIcon /></Link>
 
                             <Link to="/Posts" className=' text-white cursor-pointer'><ExploreIcon /></Link>
@@ -81,6 +81,7 @@ const Navbar = () => {
 
                     <Routes>
                         <Route path="/" element={<Posts />} />
+                        <Route path="/Posts" element={<Posts />} />
                         <Route path="/Create" element={<Reels/>} />
                     </Routes>
 

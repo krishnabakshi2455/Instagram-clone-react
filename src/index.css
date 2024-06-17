@@ -9,3 +9,12 @@ body{
 p{
   color: white;
 }
+::-webkit-scrollbar{
+  background-color: black;
+  border: 0.8px solid rgb(40, 40, 40);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: rgb(41, 40, 40);
+  border-radius: 100px;
+}

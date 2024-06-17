@@ -38,13 +38,16 @@
     align-items: center;
     justify-content: center;
 }
-
+.Navbarmobile-container{
+    display: none;
+}
 @media (min-width:300px) and (max-width:450px) {
     .reel-main-div {
         width: 100%;
-        height: 100vh;
+        height: 93vh;
         /* border: 1px solid blue; */
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         /* border: 1px solid red; */
@@ -62,6 +65,9 @@
         height: 50vh;
         overflow: auto;
         padding: 0 10px 30px 10px;
+    }
+    .Navbarmobile-container{
+        display: block;
     }
 
 }
