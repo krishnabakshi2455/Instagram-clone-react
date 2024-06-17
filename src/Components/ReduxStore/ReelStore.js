@@ -2,24 +2,27 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
-    postsdata: [],
+    Video: [],
+    Images: []
     // its is an array to store multiple data in objects
 };
 export const Reelslice = createSlice({
     name: 'Reels',
     initialState,
     reducers: {
-        PostsData: (state, action) => {
-            state.postsdata.push(action.payload);
-            // traditional method to push data in array  
+        PostImages: (state, action) => {
+            state.Images.push(action.payload)
         },
-      
+        PostVideos: (state, action) => {
+            state.Video.push(action.payload)
+        }
+
 
     },
 })
 
 
-export const { PostsData,  } = Reelslice.actions;
+export const {  PostImages, PostVideos } = Reelslice.actions;
 
 export default Reelslice.reducer;
 

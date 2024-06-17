@@ -3,7 +3,7 @@ import './Reels.css'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
-import { PostsData,} from '../../../ReduxStore/ReelStore';
+import { PostImages, PostVideos } from '../../../ReduxStore/ReelStore';
 import NavbarMobile from '../../Navbar/NavbarMobile';
 
 const Reels = () => {
@@ -31,7 +31,7 @@ const Reels = () => {
 
 
     const imageExtensions = ['jpeg', 'jpg', 'gif', 'png', 'bmp', 'webp', 'svg'];
-   
+    const videoExtensions = ['mp4', 'webm', 'ogg', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
 
 
     const getFileExtension = (url) => {
@@ -47,8 +47,10 @@ const Reels = () => {
             b. the file variable contain the main url 
             c. reader is an FileReader API.
             d. dataurl is using the getFileExtension function to return the url extension 
-            e. In if if the imageExtensions includes  the extension returned by getFileExtension then the image will be changed into data url string because normal screenshot or photos does not work in img tag and then dispatch the data to the Redux store via the PostsData action
-            f. In else if the first condition does not match then the url will be sent as it is without any change
+            e. In if if the imageExtensions includes  the extension returned by getFileExtension then the image will be changed into data url string because normal screenshot or photos does not work in img tag and then dispatch the data to the Redux store via the PostImages action
+            f. In elseif videoExtensions checks if the url is of video 
+            g. Video URL Creation: Used URL.createObjectURL(file) to create a URL that the video tag can use directly for video playback.
+            h. dispatch the data to the Redux store via the PostVideos action
     */
 
     const onSubmit = async (data) => {
@@ -57,28 +59,34 @@ const Reels = () => {
         let file = data.photo[0];
         let reader = new FileReader();
         let dataurl = getFileExtension(data.photo[0].name)
-        console.log("data url hai ye",dataurl);
+        console.log("data url hai ye", dataurl);
 
-        
+
         if (imageExtensions.includes(dataurl)) {
             reader.onloadend = () => {
                 const postContent = reader.result; // Data URL string
                 const postDescription = data.description;
-                dispatch(PostsData({ postContent, postDescription }));
+                dispatch(PostImages({ postContent, postDescription }));
             };
 
             reader.readAsDataURL(file);
-        } else {
-            const postContent = data.photo[0].name;
+        } else if (videoExtensions.includes(dataurl)) {
+            const postContent = URL.createObjectURL(file); // Create a URL for the video file
             const postDescription = data.description;
-            dispatch(PostsData({ postContent: postContent, postDescription: postDescription }));
+            dispatch(PostVideos({ postContent, postDescription }));
+        }else{
+            console.error("Not Supporting This url")
         }
 
     };
 
-    const postdatamain = useSelector((state) => state.Reels.postsdata);
+    const Postdataimage = useSelector((state) => state.Reels.Images);
 
-    console.log('from reel component reduxreel reelurl =>>', postdatamain);
+    // console.log('from reel component reduxreel Image =>>', Postdataimage);
+
+    const Postdatavideo = useSelector((state) => state.Reels.Video);
+
+    console.log('from reel component reduxreel Video =>>', Postdatavideo);
 
 
 
@@ -116,9 +124,6 @@ const Reels = () => {
 
 
                         <Button className='submit-reel' type='submit' variant="contained">Create</Button>
-                        {/* {isSubmitting && <div style={{ color: "greenyellow" }}>Loading...</div>} */}
-                        {/* {isSubmitted && <div style={{color:"green"}}>Submitted</div>} */}
-
                     </div>
 
                 </form>

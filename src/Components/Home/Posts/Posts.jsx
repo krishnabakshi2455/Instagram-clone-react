@@ -8,7 +8,7 @@ import { Link, Routes, Route } from 'react-router-dom';
 import Following from './Following/Following'
 import NavbarMobile from '../Navbar/NavbarMobile';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { PostsData, } from '../../ReduxStore/ReelStore';
+import { PostImages, PostVideos } from '../../ReduxStore/ReelStore';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SendIcon from '@mui/icons-material/Send';
 import ForumIcon from '@mui/icons-material/Forum';
@@ -18,29 +18,15 @@ const Posts = () => {
   const currentPassword = useSelector((state) => state.Form.password);
   console.log("from posts currentusername=>>", currentUsername);
 
-  const MainPostsData = useSelector((state) => state.Reels.postsdata)
-  console.log("from posts postsreduxdata==>>", MainPostsData);
-  // console.log("from posts postsreduxdata==>>", MainPostsData[0].postContent);
-
+  const Postdataimage = useSelector((state) => state.Reels.Images);
+  const Postdatavideo = useSelector((state) => state.Reels.Video);
+  console.log("From posts component", Postdataimage);
 
 
   const imageExtensions = ['jpeg', 'jpg', 'gif', 'png', 'bmp', 'webp', 'svg'];
   const videoExtensions = ['mp4', 'webm', 'ogg', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
 
 
-  const getFileExtension = (url) => {
-    const parts = url.split('.');
-    return parts[parts.length - 1].toLowerCase();
-  };
-
-  const isImageOrVideo = (url)=>{
-    const extension = getFileExtension(url);
-    if (videoExtensions.includes(extension)){
-      return 'video';
-    }else{
-      return 'image';
-    }
-  }
 
  
 
@@ -61,8 +47,8 @@ const Posts = () => {
             <div className='reel-container'>
 
               {
-                MainPostsData && MainPostsData.map((item, index) => {
-                  const contentType = isImageOrVideo(item.postContent);
+                Postdataimage && Postdataimage.map((item, index) => {
+                 
                   // console.log("images from redux store in posts==>>", item.postContent);
                   return (
 
@@ -80,17 +66,68 @@ const Posts = () => {
                       {/* ======================================== */}
 
                       <div className='reel-content'>
-                        {contentType === 'image' ? (
-                          <img src={item.postContent} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
-                        ) : contentType === 'video' ? (
-                          <video src={item.postContent} controls />
-                        ) : (
-                          <p>Welcome to Unknown</p>
-                        )}
+                        <img src={item.postContent} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
 
                        
 
                         
+                      </div>
+
+                      <div className='reel-icons flex items-center justify-between'>
+                        <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                          <FavoriteBorderIcon />
+                          <ForumIcon />
+                          <SendIcon />
+                        </div>
+                        <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                      </div>
+
+                      <div className='reel-descr flex'>
+                        <p className='flex'>{currentUsername}*</p>
+                        <p>{item.postDescription}</p>
+                      </div>
+
+                      <div className='reel-comment mt-6'>
+                        <div className='flex'>
+                          <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
+                          <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
+                        </div>
+
+                        <div className='all-comments '>
+                          <p>All comments</p>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )
+                })
+              }
+{/* ===================================VIDEO ITRATION====================================== */}
+              {
+                Postdatavideo && Postdatavideo.map((item, index) => {
+                  // console.log("images from redux store in posts==>>", item.postContent);
+                  return (
+
+                    <div className='reel-start' key={index}>
+
+                      <div className='reel-header'>
+
+                        <div className='reel-name-container'>
+                          <Avatar  >{currentUsername[0]}</Avatar>
+                          <p>{currentUsername} </p>
+                        </div>
+
+                        <MoreHorizIcon />
+                      </div>
+                      {/* ======================================== */}
+
+                      <div className='reel-content'>
+                        <video src={item.postContent} controls />
+
+
+
+
                       </div>
 
                       <div className='reel-icons flex items-center justify-between'>
