@@ -72,15 +72,18 @@ const Reels = () => {
             };
 
             reader.readAsDataURL(file);
+            alert("Post Created Succesfully Please Go back To Home Page")
         } else if (videoExtensions.includes(dataurl)) {
             const postContent = URL.createObjectURL(file); // Create a URL for the video file
             const postDescription = data.description;
             dispatch(PostVideos({ postContent, postDescription }));
+            alert("Post Created Succesfully Please Go back To Home Page")
         }else{
             console.error("Not Supporting This url")
+            alert("Not Supporting This url")
         }
         
-        alert("Post Created Succesfully Please Go back To Home Page")
+        
 
     };
 
