@@ -3,6 +3,7 @@ import './Authentication.css'
 import { Box, Button } from '@mui/material'
 import Login from './Login'
 import Signup from './Signup'
+import LoginImage from '../../Images/LoginImage.webp'
 const Authentication = () => {
     const [active, setactive] = useState("login")
 
@@ -18,7 +19,8 @@ const Authentication = () => {
             <Box component="div" className='authentication'>
       
                 <Box component="div" className='auth__left'>
-                    <img src="https://thumbs.dreamstime.com/b/instagram-app-login-page-screen-phone-rome-italy-february-th-hand-holding-smart-social-blurry-logo-background-211497493.jpg" alt="" />
+                    {/* <img src="https://thumbs.dreamstime.com/b/instagram-app-login-page-screen-phone-rome-italy-february-th-hand-holding-smart-social-blurry-logo-background-211497493.jpg" alt="" /> */}
+                    <img src={LoginImage} alt="" />
                 </Box>
 
                 <Box component="div" className='auth__right'>

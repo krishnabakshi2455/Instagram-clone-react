@@ -6,6 +6,8 @@ import { Button, Typography } from '@mui/material';
 import { PostImages, PostVideos } from '../../../ReduxStore/ReelStore';
 import NavbarMobile from '../../Navbar/NavbarMobile';
 
+// this is use to create posts
+
 const Reels = () => {
 
     const {
@@ -77,6 +79,8 @@ const Reels = () => {
         }else{
             console.error("Not Supporting This url")
         }
+        
+        alert("Post Created Succesfully Please Go back To Home Page")
 
     };
 

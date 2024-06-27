@@ -15,7 +15,7 @@ import Posts from '../Posts/Posts'
 import MenuIcon from '@mui/icons-material/Menu';
 import Sugesstions from '../Posts/Suggestions/Suggestions';
 import { loggedinuser, signup, logout } from '../../ReduxStore/StoreContainer';
-import Reels from '../Posts/Reels/Reels';
+import Reels from '../Posts/CreatePosts/Reels';
 
 const Navbar = () => {
 

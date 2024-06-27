@@ -13,6 +13,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SendIcon from '@mui/icons-material/Send';
 import ForumIcon from '@mui/icons-material/Forum';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import LoginImage from '../../../Images/WelcomeImage.jpg'
 const Posts = () => {
   const currentUsername = useSelector((state) => state.Form.username);
   const currentPassword = useSelector((state) => state.Form.password);
@@ -185,7 +186,7 @@ const Posts = () => {
                 {/* ======================================== */}
 
                 <div className='reel-content'>
-                  <img src="https://wallpapercave.com/wp/wp4708763.jpg" alt="" />
+                  <img src={LoginImage} alt="" />
                 </div>
 
                 <div className='reel-icons flex items-center justify-between'>

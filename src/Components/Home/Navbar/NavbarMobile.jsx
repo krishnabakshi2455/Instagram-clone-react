@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, Routes, Route } from 'react-router-dom';
 import Posts from '../Posts/Posts'
 import { loggedinuser, signup, logout } from '../../ReduxStore/StoreContainer';
-import Reels from '../Posts/Reels/Reels';
+import Reels from '../Posts/CreatePosts/Reels';
 import { Box, Button, Avatar } from '@mui/material'
 const NavbarMobile = () => {
   const currentUsername = useSelector((state) => state.Form.username);
