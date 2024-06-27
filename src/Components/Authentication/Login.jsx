@@ -4,6 +4,7 @@ import { Box, } from '@mui/material'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux';
 import { loggedinuser } from '../ReduxStore/StoreContainer';
+import InstaLogo from '../../Images/InstaLogo.png'
 const Login = () => {
     const {
         register,
@@ -46,7 +47,7 @@ const Login = () => {
         <>
 
             <Box component="div" className='login'>
-                <img src="https://www.logolynx.com/images/logolynx/82/82abee4b6db4025c07209adec0d62acd.png" width={200} className='sidenav__logo' alt="notfound" />
+                <img src={InstaLogo} width={200} className='sidenav__logo' alt="notfound" />
 
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <input placeholder='username' {...register("username", { required: { value: true, message: "This Field Is Required" }, minLength: { value: 3, message: "Minimum Length is 3" }, })} type="text" />

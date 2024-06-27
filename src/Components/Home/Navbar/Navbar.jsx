@@ -16,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Sugesstions from '../Posts/Suggestions/Suggestions';
 import { loggedinuser, signup, logout } from '../../ReduxStore/StoreContainer';
 import Reels from '../Posts/CreatePosts/Reels';
+import InstaLogo from '../../../Images/InstaLogo.png'
 
 const Navbar = () => {
 
@@ -34,7 +35,7 @@ const Navbar = () => {
             <Box component="div" className='navbar-super-div flex w-screen lg:justify-around'>
 
                 <Box component="div" className='navbar-main-div'>
-                    <img src="https://www.logolynx.com/images/logolynx/82/82abee4b6db4025c07209adec0d62acd.png" width={150} className=' ml-4 mt-4' alt="notfound" />
+                    <img src={InstaLogo} width={150} className=' ml-4 mt-4' alt="notfound" />
 
                     <Box component="div" className='navbar-container'>
 
