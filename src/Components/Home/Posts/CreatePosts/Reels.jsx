@@ -143,14 +143,14 @@ const Reels = () => {
 
     // const Postdataimage = useSelector((state) => state.Reels.Images);
 
-    const Multipleimages = useSelector((state) => state.Reels.MultipleImage)
+    // const Multipleimages = useSelector((state) => state.Reels.MultipleImage)
 
-    console.log('from reel component reduxreel PostMultipleImages =>>', Multipleimages);
+    // console.log('from reel component reduxreel PostMultipleImages =>>', Multipleimages);
 
-    const Multiplevideos = useSelector((state) => state.Reels.MultipleVideo)
-    console.log('from reel component reduxreel PostMultipleVideos =>>', Multiplevideos);
+    // const Multiplevideos = useSelector((state) => state.Reels.MultipleVideo)
+    // console.log('from reel component reduxreel PostMultipleVideos =>>', Multiplevideos);
 
-    const Postdatavideo = useSelector((state) => state.Reels.Video);
+    // const Postdatavideo = useSelector((state) => state.Reels.Video);
 
     // console.log('from reel component reduxreel Video =>>', Postdatavideo);
 

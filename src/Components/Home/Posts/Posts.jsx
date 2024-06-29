@@ -29,6 +29,13 @@ const Posts = () => {
 
 
 
+  const Multipleimages = useSelector((state) => state.Reels.MultipleImage)
+
+  console.log('from post component reduxreel PostMultipleImages =>>', Multipleimages);
+
+  const Multiplevideos = useSelector((state) => state.Reels.MultipleVideo)
+  console.log('from post component reduxreel PostMultipleVideos =>>', Multiplevideos);
+
  
 
 
@@ -105,6 +112,89 @@ const Posts = () => {
                   )
                 })
               }
+
+              {/* ===========================================Multiple Images Or Videos Itertion======================================================================== */}
+
+           
+              
+              
+
+              {
+                Multipleimages && Multipleimages.map((item, index) => {
+
+                  // console.log("images from redux store in posts==>>", item.postContent);
+                  return (
+
+                    <div className='reel-start' key={index}>
+
+                      <div className='reel-header'>
+
+                        <div className='reel-name-container'>
+                          <Avatar  >{currentUsername[0]}</Avatar>
+                          <p>{currentUsername} </p>
+                        </div>
+
+                        <MoreHorizIcon />
+                      </div>
+                      {/* ======================================== */}
+
+                      <div className='reel-content overflow-auto'>
+                        {/* {
+                          console.log(item)
+                        } */}
+                        <img src={item} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
+
+
+
+
+                      </div>
+
+                      <div className='reel-icons flex items-center justify-between'>
+                        <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                          <FavoriteBorderIcon />
+                          <ForumIcon />
+                          <SendIcon />
+                        </div>
+                        <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                      </div>
+
+                      <div className='reel-descr flex'>
+                        <p className='flex'>{currentUsername}*</p>
+                        <p>{item.postDescription}</p>
+                      </div>
+                      {/* <p>{item.PostDate}</p> */}
+
+                      <div className='reel-comment mt-6'>
+                        <div className='flex'>
+                          <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
+                          <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
+                        </div>
+
+                        <div className='all-comments '>
+                          <p>All comments</p>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  )
+                })
+              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {/* ===================================VIDEO ITRATION====================================== */}
               {
                 Postdatavideo && Postdatavideo.map((item, index) => {
@@ -162,6 +252,9 @@ const Posts = () => {
                   )
                 })
               }
+
+
+
 
 
 
