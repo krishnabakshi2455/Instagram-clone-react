@@ -3,7 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     Video: [],
-    Images: []
+    Images: [],
+    MultipleImage: [],
+    DescriptionForMultImg:[],
+    MultipleVideo: [],
     // its is an array to store multiple data in objects
 };
 export const Reelslice = createSlice({
@@ -15,6 +18,14 @@ export const Reelslice = createSlice({
         },
         PostVideos: (state, action) => {
             state.Video.push(action.payload)
+        },
+        PostMultipleImages: (state, action) => {
+            // state.MultipleImage.push(action.payload)
+            state.MultipleImage.push(...action.payload.postContent);
+        },
+        PostMultipleVideos: (state, action) => {
+            // state.MultipleVideo.push(action.payload)
+            state.MultipleVideo.push(...action.payload.postContent);
         }
 
 
@@ -22,7 +33,7 @@ export const Reelslice = createSlice({
 })
 
 
-export const {  PostImages, PostVideos } = Reelslice.actions;
+export const { PostImages, PostVideos, PostMultipleImages, PostMultipleVideos } = Reelslice.actions;
 
 export default Reelslice.reducer;
 

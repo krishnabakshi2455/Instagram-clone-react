@@ -3,8 +3,10 @@ import './Reels.css'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
-import { PostImages, PostVideos } from '../../../ReduxStore/ReelStore';
+import { PostImages, PostVideos, PostMultipleVideos } from '../../../ReduxStore/ReelStore';
+import { PostMultipleImages } from '../../../ReduxStore/ReelStore';
 import NavbarMobile from '../../Navbar/NavbarMobile';
+import { AssistWalkerTwoTone } from '@mui/icons-material';
 
 // this is use to create posts
 
@@ -56,44 +58,111 @@ const Reels = () => {
     */
 
     const onSubmit = async (data) => {
-        await delay(0);
+        const filelist = Array.from(data.photo);
+        console.log("this is file type ==>>", typeof (filelist[0]), filelist);
         console.log(data);
         let file = data.photo[0];
         let reader = new FileReader();
-        let dataurl = getFileExtension(data.photo[0].name)
-        console.log("data url hai ye", dataurl);
+        // console.log(typeof (data.photo));
+        let dataurl;
 
+        if (filelist.length === 1) {
 
-        if (imageExtensions.includes(dataurl)) {
-            reader.onloadend = () => {
-                const postContent = reader.result; // Data URL string
+            dataurl = getFileExtension(data.photo[0].name)
+            if (imageExtensions.includes(dataurl)) {
+                reader.onloadend = () => {
+                    const postContent = reader.result; // Data URL string
+                    const postDescription = data.description;
+                    // const PostDate = data.photo[0].lastModifiedDate
+                    dispatch(PostImages({ postContent, postDescription }));
+                };
+                alert("Post Created Succesfully Please Go back To Home Page")
+            } else if (videoExtensions.includes(dataurl)) {
+                const postContent = URL.createObjectURL(file); // Create a URL for the video file
                 const postDescription = data.description;
-                dispatch(PostImages({ postContent, postDescription }));
-            };
-
+                dispatch(PostVideos({ postContent, postDescription }));
+                alert("Post Created Succesfully Please Go back To Home Page")
+            } else {
+                console.error("Not Supporting This url")
+                alert("Not Supporting This url")
+            }
+            // end{code}
             reader.readAsDataURL(file);
-            alert("Post Created Succesfully Please Go back To Home Page")
-        } else if (videoExtensions.includes(dataurl)) {
-            const postContent = URL.createObjectURL(file); // Create a URL for the video file
-            const postDescription = data.description;
-            dispatch(PostVideos({ postContent, postDescription }));
-            alert("Post Created Succesfully Please Go back To Home Page")
-        }else{
-            console.error("Not Supporting This url")
-            alert("Not Supporting This url")
         }
+
+         else if (filelist.length > 1) {
+            const imageFiles = [];
+            const videoFiles = [];
+            const postDescription = data.description;
+
+              for  (const file of filelist) {
+                const extension = getFileExtension(file.name);
+                console.log("File extension:", extension);
+
+                if (imageExtensions.includes(extension)) {
+                    const reader = new FileReader();
+                    reader.onloadend =  () =>  {
+                        imageFiles.push(reader.result);
+                        // console.log("Image files:", imageFiles);
+                        if (imageFiles.length === filelist.filter(f => imageExtensions.includes(getFileExtension(f.name))).length) {
+                            console.log("Dispatching multiple images:", imageFiles);
+                            dispatch(PostMultipleImages({ postContent: imageFiles, postDescription }));
+                        }
+
+                    };
+                    reader.readAsDataURL(file);
+                } else if (videoExtensions.includes(extension)) {
+                    const postContent = URL.createObjectURL(file);
+                    videoFiles.push(postContent);
+                    console.log("Video files:", videoFiles);
+                    if (videoFiles.length === filelist.filter(f => videoExtensions.includes(getFileExtension(f.name))).length) {
+                        console.log("Dispatching multiple videos:", videoFiles);
+                        dispatch(PostMultipleVideos({ postContent: videoFiles, postDescription }));
+                    }
+                } else {
+                    alert('Not Supporting This url');
+                }
+
+            }
+
+            // -----------------------------------------
+        }
+
+        /*
+        Loop through File List:
+
+for (const file of filelist) { ... }: This loop iterates through each file in the filelist.
+Get File Extension:
+
+const extension = getFileExtension(file.name);: This function extracts the file extension from the file.name.
+Check Image and Video Extensions:
+
+If the file is an image, a FileReader is used to read the file as a Data URL (readAsDataURL). Once loaded (onloadend), the result (reader.result) is pushed into imageFiles.
+After all images are loaded (imageFiles.length equals the number of images in filelist), PostMultipleImages action is dispatched with postContent (array of image URLs) and postDescription.
+
+If the file is a video, URL.createObjectURL(file) is used to create a URL for the video file (postContent). This URL can be used directly in the <video> tag for playback.
+After all videos are processed (videoFiles.length equals the number of videos in filelist), PostMultipleVideos action is dispatched with postContent (array of video URLs) and postDescription.
+
+If the file extension doesn't match any in imageExtensions or videoExtensions, an alert is shown indicating that the URL is not supported.
+
+This code segment efficiently handles the submission of multiple files (images and videos) using FileReader and URL.createObjectURL.
+It checks each file's extension to determine if it's an image or video and then processes them accordingly.
+Once all files of a type (images or videos) are processed, it dispatches actions (PostMultipleImages or PostMultipleVideos) to update Redux state with the corresponding content and description.
         
-        
+        */
+
 
     };
 
-    const Postdataimage = useSelector((state) => state.Reels.Images);
+    // const Postdataimage = useSelector((state) => state.Reels.Images);
 
-    // console.log('from reel component reduxreel Image =>>', Postdataimage);
+    const Multipleimages = useSelector((state) => state.Reels.MultipleImage)
+
+    console.log('from reel component reduxreel PostMultipleImages =>>', Multipleimages);
 
     const Postdatavideo = useSelector((state) => state.Reels.Video);
 
-    console.log('from reel component reduxreel Video =>>', Postdatavideo);
+    // console.log('from reel component reduxreel Video =>>', Postdatavideo);
 
 
 
@@ -117,7 +186,7 @@ const Reels = () => {
 
 
                     <div className='flex flex-col items-center mt-12 gap-3'>
-                        <input placeholder='photo' {...register("photo", { required: { value: true, message: "This Field Is Required" } })} type="file" className=' ml-24' />
+                        <input placeholder='photo' {...register("photo", { required: { value: true, message: "This Field Is Required" } })} multiple type="file" className=' ml-24' />
 
                         <div style={{ height: "20px" }}>
                             {errors.photo && <div style={{ color: "red", fontSize: "13px", fontWeight: "bold" }}>{errors.photo.message}</div>}

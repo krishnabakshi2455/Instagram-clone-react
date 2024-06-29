@@ -87,6 +87,7 @@ const Posts = () => {
                         <p className='flex'>{currentUsername}*</p>
                         <p>{item.postDescription}</p>
                       </div>
+                      {/* <p>{item.PostDate}</p> */}
 
                       <div className='reel-comment mt-6'>
                         <div className='flex'>
