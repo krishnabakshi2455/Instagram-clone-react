@@ -90,66 +90,53 @@ const Reels = () => {
             reader.readAsDataURL(file);
         }
 
-         else if (filelist.length > 1) {
+        else if (filelist.length > 1) {
             const imageFiles = [];
             const videoFiles = [];
             const postDescription = data.description;
 
-              for  (const file of filelist) {
-                const extension = getFileExtension(file.name);
-                console.log("File extension:", extension);
+            const readFile = (file) => {  // This function takes a file as an argument and returns a promise
+                return new Promise((resolve, reject) => {
+                    const extension = getFileExtension(file.name); // It determines the file's extension using getFileExtension(file.name)
+                    console.log("File extension:", extension);
 
-                if (imageExtensions.includes(extension)) {
-                    const reader = new FileReader();
-                    reader.onloadend =  () =>  {
-                        imageFiles.push(reader.result);
-                        // console.log("Image files:", imageFiles);
-                        if (imageFiles.length === filelist.filter(f => imageExtensions.includes(getFileExtension(f.name))).length) {
-                            console.log("Dispatching multiple images:", imageFiles);
-                            dispatch(PostMultipleImages({ postContent: imageFiles, postDescription }));
-                        }
-
-                    };
-                    reader.readAsDataURL(file);
-                } else if (videoExtensions.includes(extension)) {
-                    const postContent = URL.createObjectURL(file);
-                    videoFiles.push(postContent);
-                    console.log("Video files:", videoFiles);
-                    if (videoFiles.length === filelist.filter(f => videoExtensions.includes(getFileExtension(f.name))).length) {
-                        console.log("Dispatching multiple videos:", videoFiles);
-                        dispatch(PostMultipleVideos({ postContent: videoFiles, postDescription }));
+                    if (imageExtensions.includes(extension)) { //If the file is an image (based on its extension), it reads the file content as a data URL using FileReader. Upon successful reading (onloadend), it pushes the result to the imageFiles array.
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            imageFiles.push(reader.result);
+                            resolve();
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    } else if (videoExtensions.includes(extension)) {  //If the file is a video, it creates a URL for the file using URL.createObjectURL(file) and pushes it to the videoFiles array.
+                        const postContent = URL.createObjectURL(file);
+                        videoFiles.push(postContent);
+                        resolve();
+                    } else {
+                        alert('Not Supporting This url');
+                        reject(); //If the file is neither an image nor a video, it shows an alert and rejects the promise.
                     }
-                } else {
-                    alert('Not Supporting This url');
+                });
+            };
+
+            const promises = filelist.map(file => readFile(file)); //It creates an array of promises by mapping filelist through the readFile function.
+
+            try {
+                await Promise.all(promises); //It waits for all the promises to resolve using await Promise.all(promises).
+                await new Promise(resolve => setTimeout(resolve, 1500)); // It then waits for an additional 1500 milliseconds using await new Promise(resolve => setTimeout(resolve, 1500))
+
+                if (imageFiles.length) { //If there are any images in imageFiles, it logs the images and dispatches an action PostMultipleImages with postContent containing the images and postDescription.
+                    console.log("Dispatching multiple images:", imageFiles);
+                    dispatch(PostMultipleImages({ postContent: imageFiles, postDescription }));
                 }
-
+                if (videoFiles.length) { //If there are any videos in videoFiles, it logs the videos and dispatches an action PostMultipleVideos with postContent containing the videos and postDescription.
+                    console.log("Dispatching multiple videos:", videoFiles);
+                    dispatch(PostMultipleVideos({ postContent: videoFiles, postDescription }));
+                }
+            } catch (error) { //If any error occurs during the file processing, it catches the error and logs it to the console.
+                console.error("Error processing files:", error);
             }
-
-            // -----------------------------------------
         }
-
-        /*
-        Loop through File List:
-
-for (const file of filelist) { ... }: This loop iterates through each file in the filelist.
-Get File Extension:
-
-const extension = getFileExtension(file.name);: This function extracts the file extension from the file.name.
-Check Image and Video Extensions:
-
-If the file is an image, a FileReader is used to read the file as a Data URL (readAsDataURL). Once loaded (onloadend), the result (reader.result) is pushed into imageFiles.
-After all images are loaded (imageFiles.length equals the number of images in filelist), PostMultipleImages action is dispatched with postContent (array of image URLs) and postDescription.
-
-If the file is a video, URL.createObjectURL(file) is used to create a URL for the video file (postContent). This URL can be used directly in the <video> tag for playback.
-After all videos are processed (videoFiles.length equals the number of videos in filelist), PostMultipleVideos action is dispatched with postContent (array of video URLs) and postDescription.
-
-If the file extension doesn't match any in imageExtensions or videoExtensions, an alert is shown indicating that the URL is not supported.
-
-This code segment efficiently handles the submission of multiple files (images and videos) using FileReader and URL.createObjectURL.
-It checks each file's extension to determine if it's an image or video and then processes them accordingly.
-Once all files of a type (images or videos) are processed, it dispatches actions (PostMultipleImages or PostMultipleVideos) to update Redux state with the corresponding content and description.
-        
-        */
 
 
     };
@@ -159,6 +146,9 @@ Once all files of a type (images or videos) are processed, it dispatches actions
     const Multipleimages = useSelector((state) => state.Reels.MultipleImage)
 
     console.log('from reel component reduxreel PostMultipleImages =>>', Multipleimages);
+
+    const Multiplevideos = useSelector((state) => state.Reels.MultipleVideo)
+    console.log('from reel component reduxreel PostMultipleVideos =>>', Multiplevideos);
 
     const Postdatavideo = useSelector((state) => state.Reels.Video);
 
