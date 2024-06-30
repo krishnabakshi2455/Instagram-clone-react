@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
 import { PostImages, PostVideos, PostMultipleVideos } from '../../../ReduxStore/ReelStore';
-import { PostMultipleImages } from '../../../ReduxStore/ReelStore';
+import { PostMultipleImages, PostMulDesrcption } from '../../../ReduxStore/ReelStore';
 import NavbarMobile from '../../Navbar/NavbarMobile';
 import { AssistWalkerTwoTone } from '@mui/icons-material';
 
@@ -127,14 +127,19 @@ const Reels = () => {
 
                 if (imageFiles.length) { //If there are any images in imageFiles, it logs the images and dispatches an action PostMultipleImages with postContent containing the images and postDescription.
                     console.log("Dispatching multiple images:", imageFiles);
-                    dispatch(PostMultipleImages({ postContent: imageFiles, postDescription }));
+                    dispatch(PostMultipleImages({ postContent: imageFiles }));
+                    dispatch(PostMulDesrcption({ postDescription }));
+                    alert("Post Created Succesfully Please Go back To Home Page")
                 }
                 if (videoFiles.length) { //If there are any videos in videoFiles, it logs the videos and dispatches an action PostMultipleVideos with postContent containing the videos and postDescription.
                     console.log("Dispatching multiple videos:", videoFiles);
-                    dispatch(PostMultipleVideos({ postContent: videoFiles, postDescription }));
+                    dispatch(PostMultipleVideos({ postContent: videoFiles }));
+                    dispatch(PostMulDesrcption({ postDescription }));
+                    alert("Post Created Succesfully Please Go back To Home Page")
                 }
             } catch (error) { //If any error occurs during the file processing, it catches the error and logs it to the console.
                 console.error("Error processing files:", error);
+                alert('Not Supporting This url');
             }
         }
 

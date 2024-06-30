@@ -26,14 +26,17 @@ export const Reelslice = createSlice({
         PostMultipleVideos: (state, action) => {
             // state.MultipleVideo.push(action.payload)
             state.MultipleVideo.push(...action.payload.postContent);
-        }
+        },
+        PostMulDesrcption: (state, action) => {
+            state.DescriptionForMultImg.push(action.payload)
+        },
 
 
     },
 })
 
 
-export const { PostImages, PostVideos, PostMultipleImages, PostMultipleVideos } = Reelslice.actions;
+export const { PostImages, PostVideos, PostMultipleImages, PostMultipleVideos, PostMulDesrcption } = Reelslice.actions;
 
 export default Reelslice.reducer;
 

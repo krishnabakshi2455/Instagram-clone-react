@@ -14,6 +14,9 @@ import SendIcon from '@mui/icons-material/Send';
 import ForumIcon from '@mui/icons-material/Forum';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LoginImage from '../../../Images/WelcomeImage.jpg'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 const Posts = () => {
   const currentUsername = useSelector((state) => state.Form.username);
   const currentPassword = useSelector((state) => state.Form.password);
@@ -36,7 +39,43 @@ const Posts = () => {
   const Multiplevideos = useSelector((state) => state.Reels.MultipleVideo)
   console.log('from post component reduxreel PostMultipleVideos =>>', Multiplevideos);
 
- 
+  const MultipleDescription = useSelector((state) => state.Reels.DescriptionForMultImg)
+  console.log('from post component reduxreel MultipleDescription =>>', MultipleDescription);
+
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
 
   
@@ -113,73 +152,75 @@ const Posts = () => {
                 })
               }
 
-              {/* ===========================================Multiple Images Or Videos Itertion======================================================================== */}
+              {/* ===========================================Multiple Images  Itertion======================================================================== */}
 
            
-              
-              
-
               {
-                Multipleimages && Multipleimages.map((item, index) => {
+                Multipleimages.length>1?<div>
+                  <div className='reel-start' >
 
-                  // console.log("images from redux store in posts==>>", item.postContent);
-                  return (
+                    <div className='reel-header'>
 
-                    <div className='reel-start' key={index}>
-
-                      <div className='reel-header'>
-
-                        <div className='reel-name-container'>
-                          <Avatar  >{currentUsername[0]}</Avatar>
-                          <p>{currentUsername} </p>
-                        </div>
-
-                        <MoreHorizIcon />
-                      </div>
-                      {/* ======================================== */}
-
-                      <div className='reel-content overflow-auto'>
-                        {/* {
-                          console.log(item)
-                        } */}
-                        <img src={item} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
-
-
-
-
+                      <div className='reel-name-container'>
+                        <Avatar  >{currentUsername[0]}</Avatar>
+                        <p>{currentUsername} </p>
                       </div>
 
-                      <div className='reel-icons flex items-center justify-between'>
-                        <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
-                          <FavoriteBorderIcon />
-                          <ForumIcon />
-                          <SendIcon />
-                        </div>
-                        <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                      <MoreHorizIcon />
+                    </div>
+                    {/* ======================================== */}
+                   
+                      <Slider {...settings}>
+                        {
+                          Multipleimages.map((item, index) => {
+                            return (
+                              <img src={item} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} key={index} />
+
+                            )
+                          })
+                        }
+                      </Slider>
+                  
+
+                    <div className='reel-icons flex items-center justify-between'>
+                      <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                        <FavoriteBorderIcon />
+                        <ForumIcon />
+                        <SendIcon />
+                      </div>
+                      <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                    </div>
+
+                    {
+                      MultipleDescription.map((item,index)=>{
+                        return(
+                      
+                          <div className='reel-descr flex'>
+                            <p className='flex'>{currentUsername}*</p>
+                            <p>{item.postDescription}</p>
+                          </div>
+                        
+                        )
+                      })
+                    }
+
+                    <div className='reel-comment mt-6'>
+                      <div className='flex'>
+                        <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
+                        <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
                       </div>
 
-                      <div className='reel-descr flex'>
-                        <p className='flex'>{currentUsername}*</p>
-                        <p>{item.postDescription}</p>
-                      </div>
-                      {/* <p>{item.PostDate}</p> */}
-
-                      <div className='reel-comment mt-6'>
-                        <div className='flex'>
-                          <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
-                          <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
-                        </div>
-
-                        <div className='all-comments '>
-                          <p>All comments</p>
-                        </div>
-
+                      <div className='all-comments '>
+                        <p>All comments</p>
                       </div>
 
                     </div>
-                  )
-                })
+
+                  </div>
+                </div> :null
               }
+
+             
 
 
 
@@ -252,6 +293,80 @@ const Posts = () => {
                   )
                 })
               }
+
+
+
+
+              {/* ===========================================Multiple  Videos Itertion======================================================================== */}
+
+
+              {
+                Multiplevideos.length > 1 ? <div>
+                  <div className='reel-start' >
+
+                    <div className='reel-header'>
+
+                      <div className='reel-name-container'>
+                        <Avatar  >{currentUsername[0]}</Avatar>
+                        <p>{currentUsername} </p>
+                      </div>
+
+                      <MoreHorizIcon />
+                    </div>
+                    {/* ======================================== */}
+
+                    <Slider {...settings}>
+                      {
+                        Multiplevideos.map((item, index) => {
+                          return (
+                            // <img src={item} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
+                            <video src={item} controls />
+
+                          )
+                        })
+                      }
+                    </Slider>
+
+
+                    <div className='reel-icons flex items-center justify-between'>
+                      <div className='flex gap-5 mt-4 mb-4 ml-4 cursor-pointer'>
+                        <FavoriteBorderIcon />
+                        <ForumIcon />
+                        <SendIcon />
+                      </div>
+                      <BookmarkBorderIcon className=' cursor-pointer mr-4' />
+                    </div>
+
+                    {
+                      MultipleDescription.map((item, index) => {
+                        return (
+
+                          <div className='reel-descr flex'>
+                            <p className='flex'>{currentUsername}*</p>
+                            <p>{item.postDescription}</p>
+                          </div>
+
+                        )
+                      })
+                    }
+
+                    <div className='reel-comment mt-6'>
+                      <div className='flex'>
+                        <label htmlFor="" className=' mr-4 lg:text-lg text-sm'>Add Comment </label>
+                        <input type="text" className=' bg-gray-900 border-gray-800 lg:w-80 lg:h-8 w-32' />
+                      </div>
+
+                      <div className='all-comments '>
+                        <p>All comments</p>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div> : null
+              }
+
+              
 
 
 
