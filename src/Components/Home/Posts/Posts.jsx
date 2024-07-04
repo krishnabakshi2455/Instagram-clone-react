@@ -129,11 +129,12 @@ const Posts = () => {
                         <BookmarkBorderIcon className=' cursor-pointer mr-4' />
                       </div>
 
-                      <div className='reel-descr flex'>
-                        <p className='flex'>{currentUsername}*</p>
-                        <p>{item.postDescription}</p>
+                      <div className=' overflow-auto'>
+                        <details className='flex flex-col w-20'>
+                          <summary>{currentUsername}</summary>
+                          <p className='flex flex-col w-10'>{item.postDescription}</p>
+                        </details>
                       </div>
-                      {/* <p>{item.PostDate}</p> */}
 
                       <div className='reel-comment mt-6'>
                         <div className='flex'>
@@ -195,10 +196,13 @@ const Posts = () => {
                       MultipleDescription.map((item,index)=>{
                         return(
                       
-                          <div className='reel-descr flex'>
-                            <p className='flex'>{currentUsername}*</p>
-                            <p>{item.postDescription}</p>
+                          <div className=' overflow-auto'>
+                            <details className='flex flex-col w-20'>
+                              <summary>{currentUsername}</summary>
+                              <p className='flex flex-col w-10'>{item.postDescription}</p>
+                            </details>
                           </div>
+       
                         
                         )
                       })
@@ -239,7 +243,7 @@ const Posts = () => {
 {/* ===================================VIDEO ITRATION====================================== */}
               {
                 Postdatavideo && Postdatavideo.map((item, index) => {
-                  // console.log("images from redux store in posts==>>", item.postContent);
+ 
                   return (
 
                     <div className='reel-start' key={index}>
@@ -272,10 +276,13 @@ const Posts = () => {
                         <BookmarkBorderIcon className=' cursor-pointer mr-4' />
                       </div>
 
-                      <div className='reel-descr flex'>
-                        <p className='flex'>{currentUsername}*</p>
-                        <p>{item.postDescription}</p>
+                      <div className=' overflow-auto'>
+                        <details className='flex flex-col w-20'>
+                          <summary>{currentUsername}</summary>
+                          <p className='flex flex-col w-10'>{item.postDescription}</p>
+                        </details>
                       </div>
+              
 
                       <div className='reel-comment mt-6'>
                         <div className='flex'>
@@ -319,7 +326,7 @@ const Posts = () => {
                       {
                         Multiplevideos.map((item, index) => {
                           return (
-                            // <img src={item} alt="Post Content" onError={(e) => console.log("Error loading image:", e.target.src)} />
+                          
                             <video src={item} controls />
 
                           )
@@ -341,9 +348,11 @@ const Posts = () => {
                       MultipleDescription.map((item, index) => {
                         return (
 
-                          <div className='reel-descr flex'>
-                            <p className='flex'>{currentUsername}*</p>
-                            <p>{item.postDescription}</p>
+                          <div className=' overflow-auto'>
+                            <details className='flex flex-col w-20'>
+                              <summary>{currentUsername}</summary>
+                              <p className='flex flex-col w-10'>{item.postDescription}</p>
+                            </details>
                           </div>
 
                         )
@@ -407,9 +416,12 @@ const Posts = () => {
                   <BookmarkBorderIcon className=' cursor-pointer mr-4' />
                 </div>
 
-                <div className='reel-descr flex'>
-                  <p>{currentUsername} lorem1500</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, exercitationem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat libero cupiditate officiis quam quasi obcaecati perspiciatis nesciunt. Possimus, rem laudantium deserunt dolore tenetur eligendi id ratione. Minus ea molestiae tempora earum quis repellat cumque voluptates recusandae, saepe animi voluptatibus molestias accusantium voluptatem quibusdam esse iure ullam tenetur similique officiis explicabo!.</p>
+                <div className=''>
+                  <details>
+                    <summary>{currentUsername}</summary>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, exercitationem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat libero cupiditate officiis quam quasi obcaecati perspiciatis nesciunt. Possimus, rem laudantium deserunt dolore tenetur eligendi id ratione. Minus ea molestiae tempora earum quis repellat cumque voluptates recusandae, saepe animi voluptatibus molestias accusantium voluptatem quibusdam esse iure ullam tenetur similique officiis explicabo!.</p>
+                  </details>
+
                 </div>
 
                 <div className='reel-comment mt-6'>
